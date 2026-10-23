@@ -39,6 +39,7 @@
                         <th>Skill Gaps</th>
                         <th>Status</th>
                         <th>Applied Date</th>
+                        <th class="text-end pe-4">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -73,10 +74,22 @@
                             </span>
                         </td>
                         <td class="text-muted small">{{ app.date_applied.strftime('%b %d, %Y') }}</td>
+                        <td class="text-end pe-4">
+                            <div class="d-flex justify-content-end gap-2">
+                                <a href="{{ url_for('edit_application', app_id=app.id) }}" class="btn btn-sm btn-outline-secondary">
+                                    <i class="fa-solid fa-pen"></i>
+                                </a>
+                                <form action="{{ url_for('delete_application', app_id=app.id) }}" method="POST" class="d-inline" onsubmit="return confirm('Delete this application?');">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
                     </tr>
                     {% else %}
                     <tr>
-                        <td colspan="6" class="text-center text-muted py-5">
+                        <td colspan="7" class="text-center text-muted py-5">
                             <i class="fa-solid fa-folder-open fa-2xl mb-3 d-block"></i>
                             No job applications found. Click <strong>Add Application</strong> to get started.
                         </td>

@@ -8,7 +8,6 @@ from app.services.pdf_parser import extract_text_from_pdf, analyze_keywords
 
 app = create_app()
 
-# Upload configuration
 UPLOAD_FOLDER = os.path.join(os.getcwd(), 'uploads')
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -31,21 +30,18 @@ def add_application():
         match_score = 0
         missing_skills_str = ''
         
-        # Handle PDF File Upload
         file = request.files.get('resume')
         if file and file.filename.endswith('.pdf'):
             filename = secure_filename(file.filename)
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(filepath)
             
-            # Run PDF Parsing and Matcher Service
             resume_text = extract_text_from_pdf(filepath)
             analysis = analyze_keywords(resume_text, job_description)
             
             match_score = analysis['score']
             missing_skills_str = ', '.join(analysis['missing']) if analysis['missing'] else 'None'
             
-            # Clean up uploaded file after reading
             if os.path.exists(filepath):
                 os.remove(filepath)
 
@@ -66,6 +62,36 @@ def add_application():
         return redirect(url_for('dashboard'))
 
     return render_template('add_application.html')
+
+@app.route('/edit/<int:app_id>', methods=['GET', 'POST'])
+@login_required
+def edit_application(app_id):
+    application = Application.query.get_or_404(app_id)
+    if application.user_id != current_user.id:
+        flash('Unauthorized action.', 'danger')
+        return redirect(url_for('dashboard'))
+
+    if request.method == 'POST':
+        application.company = request.form.get('company')
+        application.role = request.form.get('role')
+        application.status = request.form.get('status')
+        
+        db.session.commit()
+        flash('Application updated successfully!')
+        return redirect(url_for('dashboard'))
+
+    return render_template('edit_application.html', app=application)
+
+@app.route('/delete/<int:app_id>', methods=['POST'])
+@login_required
+def delete_application(app_id):
+    application = Application.query.get_or_404(app_id)
+    if application.user_id == current_user.id:
+        db.session.delete(application)
+        db.session.commit()
+        flash('Application deleted successfully!')
+    
+    return redirect(url_for('dashboard'))
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)

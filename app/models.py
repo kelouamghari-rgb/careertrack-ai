@@ -24,7 +24,6 @@ class Application(db.Model):
     status = db.Column(db.String(50), default='Saved')
     date_applied = db.Column(db.DateTime, default=datetime.utcnow)
     
-    # AI & Resume Match Fields
     job_description = db.Column(db.Text, nullable=True)
     match_score = db.Column(db.Integer, default=0)
     missing_skills = db.Column(db.String(256), nullable=True)
