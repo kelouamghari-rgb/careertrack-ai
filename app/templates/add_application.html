@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-7">
+        <div class="card shadow-sm p-4">
+            <h3 class="mb-3">New Job Application & CV Matcher</h3>
+            <form method="POST" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label class="form-label">Company Name</label>
+                    <input type="text" name="company" class="form-control" required placeholder="e.g. Google">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Role Title</label>
+                    <input type="text" name="role" class="form-control" required placeholder="e.g. Python Developer">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Status</label>
+                    <select name="status" class="form-select">
+                        <option value="Saved">Saved</option>
+                        <option value="Applied" selected>Applied</option>
+                        <option value="Interviewing">Interviewing</option>
+                        <option value="Offer">Offer</option>
+                        <option value="Rejected">Rejected</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Job Description (for AI Matching)</label>
+                    <textarea name="job_description" class="form-control" rows="4" placeholder="Paste the job posting requirements here..."></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Upload CV / Resume (PDF)</label>
+                    <input type="file" name="resume" class="form-control" accept=".pdf">
+                </div>
+                <div class="d-flex justify-content-between mt-4">
+                    <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-success">Analyze & Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
