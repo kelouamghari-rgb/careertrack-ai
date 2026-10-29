@@ -1,30 +1,44 @@
 # 🚀 CareerTrack AI
 
-**CareerTrack AI** est une application web intelligente basée sur Flask conçue pour vous aider à suivre, gérer et optimiser vos candidatures d'emploi grâce à l'analyse automatique de vos documents (CV, offres d'emploi) via l'IA et l'extraction PDF.
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
+[![Framework](https://img.shields.io/badge/Framework-Flask-green.svg)](https://flask.palletsprojects.com/)
+[![Database](https://img.shields.io/badge/Database-SQLite-lightgrey.svg)](https://www.sqlite.org/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+**CareerTrack AI** is an intelligent web application designed to help job seekers track, organize, and manage their job applications efficiently. Featuring automated resume/job description parsing via PDF processing, CareerTrack AI simplifies your career search pipeline.
 
 ---
 
-## ✨ Fonctionnalités principales
+## ✨ Features
 
-- 📊 **Tableau de bord interactif** : Suivez l'avancement de toutes vos candidatures en un coup d'œil.
-- 📄 **Analyseur de documents PDF** : Extraction automatique des informations clés de vos CV et descriptions de postes.
-- 🔐 **Authentification sécurisée** : Système complet d'inscription et de connexion pour chaque utilisateur.
-- 📝 **Gestion CRUD complète** : Ajoutez, modifiez et supprimez facilement vos candidatures.
-
----
-
-## 🛠️ Technologies utilisées
-
-- **Backend** : Python 3, Flask, SQLAlchemy
-- **Base de données** : SQLite
-- **Frontend** : HTML5, Jinja2 Templates, CSS3 / Bootstrap
-- **Services** : Parser PDF personnalisable
+- 📊 **Interactive Dashboard**: View, filter, and track all your job applications at a glance.
+- 📄 **PDF Parsing Engine**: Automatically extract key details from resumes and job postings.
+- 🔐 **User Authentication**: Secure user registration, login, and session management.
+- ✏️ **Full Application Management (CRUD)**: Create, view, update, and delete application records seamlessly.
+- 🎨 **Responsive UI**: Clean, user-friendly interface built with modern templates.
 
 ---
 
-## 🚀 Installation et exécution
+## 📁 Repository Structure
 
-### 1. Cloner le dépôt
-```bash
-git clone [https://github.com/votre-nom/careertrack-ai.git](https://github.com/votre-nom/careertrack-ai.git)
-cd careertrack-ai
+```text
+careertrack-ai/
+├── app/
+│   ├── routes/
+│   │   └── auth.py              # Authentication routes & session logic
+│   ├── services/
+│   │   └── pdf_parser.py        # PDF text parsing & extraction service
+│   ├── templates/               # Jinja2 HTML templates
+│   │   ├── add_application.html
+│   │   ├── base.html
+│   │   ├── dashboard.html
+│   │   ├── edit_application.html
+│   │   ├── login.html
+│   │   └── register.html
+│   ├── __init__.py              # Application factory & initialization
+│   └── models.py                # Database models (SQLAlchemy)
+├── instance/
+│   └── career.db                # SQLite database instance
+├── README.md                    # Project documentation
+├── requirements.txt             # Project dependencies
+└── run.py                       # Application entry point
